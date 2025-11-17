@@ -10,6 +10,6 @@ type Personal struct {
 
 //вывод структуры Personal
 func (p Personal) Print() {
-	fmt.Printf("Имя: %s\nВес: %.2f\nРост: %.2f\n", p.Name, p.Weight, p.Height)
+	fmt.Printf("Имя: %s\nВес: %.2f кг.\nРост: %.2f м.\n", p.Name, p.Weight, p.Height)
 
 }
