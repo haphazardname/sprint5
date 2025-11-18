@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/Yandex-Practicum/tracker/internal/personaldata"
+	"github.com/Yandex-Practicum/tracker/internal/spentenergy"
 )
 
 type DaySteps struct {
@@ -50,12 +51,12 @@ func (ds DaySteps) ActionInfo() (string, error) {
 		log.Println(err)
 		return "", err
 	}
-	distance := (stepLength * float64(ds.Steps)) / float64(mInKm)
-	calories, err := spentcalories.WalkingSpentCalories(steps, weight, height, trainDur)
+	calories, err := spentenergy.WalkingSpentCalories(ds.Steps, ds.Personal.Weight, ds.Personal.Height, ds.Duration)
 	if err != nil {
 		log.Println(err)
 		return "", err
 	}
-	return fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.\n", steps, distance, calories)
+	info := fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.\n", ds.Steps, spentenergy.Distance(ds.Steps, ds.Personal.Height), calories)
+	return info, nil
 
 }
